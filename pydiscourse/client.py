@@ -38,6 +38,12 @@ class DiscourseClient(object):
     def suspend(self, userid, duration, reason):
         return self._put('/admin/users/{0}/suspend'.format(userid), duration=duration, reason=reason)
 
+    def get_user_from_external_id(self, external_id):
+        return self._get("/users/by-external/{0}.json".format(external_id))
+
+    def logout_user(self, user_id):
+        return self._post("/admin/users/{0}/log_out".format(user_id))
+
     def list_users(self, type, **kwargs):
         """ optional user search: filter='test@example.com' or filter='scott' """
         return self._get('/admin/users/list/{0}.json'.format(type), **kwargs)      
